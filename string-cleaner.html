@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>String Cleaner</title>
+</head>
+<body>
+  <div>
+    <form name="form" method="GET">
+      <p class="form-title">Cola Aqui:</p>
+      <input style="width:70vw" id="input" name="dirty-string" type="text" value="">
+      <input id="clean" type="submit" value="Enter">
+    </form>
+  </div>
+  <br><br><br><br>
+  <div id="output">
+    <p class="form-title">Resultado:</p>
+    <input style="width:70vw" id="clean-string">
+  </div>
+  <script>
+    const form = document.forms['form'];
+    form.onsubmit = function (e) {
+      e.preventDefault();
+      const dirtyString = document.form.input.value;
+      const output = document.getElementById('clean-string');
+      output.value = cleanString(dirtyString);
+    };
+
+    function cleanString(dirtyString) {
+      const dirtyArray = Array.from(dirtyString.toLowerCase());
+      const cleanArray = [];
+
+      cleanArray.push(dirtyArray[0].toUpperCase());
+      for (let i = 1; i < dirtyArray.length; i++) {
+        if (dirtyArray[i - 1] === " " || dirtyArray[i - 1] === ",") {
+          if (dirtyArray[i] === "d" || dirtyArray[i] === "n") {
+            if (dirtyArray[i + 2] || dirtyArray[i + 3]) {
+              cleanArray.push(dirtyArray[i].toLowerCase());
+            }
+          } else {
+            cleanArray.push(dirtyArray[i].toUpperCase());
+          }
+        } else {
+          cleanArray.push(dirtyArray[i]);
+        };
+      }
+      return cleanArray.join("");
+    }
+
+  </script>
+</body>
+</html>
